@@ -1,6 +1,9 @@
 package com.example.eventmanagement.screens.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -58,11 +61,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             // Load image with Glide
             if (event.getImageUrl() != null && !event.getImageUrl().isEmpty()) {
-                Glide.with(binding.imageViewEvent.getContext())
-                        .load(event.getImageUrl())
-                        .centerCrop()
-                        .into(binding.imageViewEvent);
+                try {
+                    byte[] decodedBytes = Base64.decode(event.getImageUrl(), Base64.DEFAULT);
+                    Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+                    Glide.with(binding.imageViewEvent.getContext())
+                            .load(decodedBitmap)
+                            .centerCrop()
+                            .into(binding.imageViewEvent);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace(); // Handle decoding error
+                }
             }
+
 
             // Set click listener for the view details button
             binding.buttonViewDetails.setOnClickListener(v -> {
