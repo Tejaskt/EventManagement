@@ -50,7 +50,7 @@
             android:name=".auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.activity.MainActivity"
             android:exported="true" />
     </application>
 

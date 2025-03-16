@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.screens.AdminDashboardActivity">
+    tools:context=".admin.screens.AdminDashboard">
 
     <TextView
         android:id="@+id/textView_admin_title"
@@ -260,6 +260,7 @@
                 android:layout_gravity="center_vertical"
                 android:contentDescription="Arrow"
                 android:src="@drawable/ic_arrow_right" />
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

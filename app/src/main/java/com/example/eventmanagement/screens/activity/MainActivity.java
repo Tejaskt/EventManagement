@@ -1,4 +1,4 @@
-package com.example.eventmanagement;
+package com.example.eventmanagement.screens.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,15 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.eventmanagement.R;
 import com.example.eventmanagement.auth.LoginActivity;
 import com.example.eventmanagement.databinding.ActivityMainBinding;
-import com.example.eventmanagement.screens.activity.CreateEvent;
 import com.example.eventmanagement.screens.fragments.BookmarksFragment;
 import com.example.eventmanagement.screens.fragments.DashboardFragment;
 import com.example.eventmanagement.screens.fragments.ProfileFragment;
 import com.example.eventmanagement.screens.fragments.TicketsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

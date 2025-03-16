@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.eventmanagement.MainActivity;
+import com.example.eventmanagement.screens.activity.MainActivity;
 import com.example.eventmanagement.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;

@@ -10,17 +10,22 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventmanagement.R;
 import com.example.eventmanagement.auth.LoginActivity;
+import com.example.eventmanagement.screens.fragments.DashboardFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
 
     private static final int SPLASH_DURATION = 3000; // 3 seconds
     private MediaPlayer mediaPlayer;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        mAuth = FirebaseAuth.getInstance();
         ImageView logo = findViewById(R.id.imageViewLogo);
 
         // Fade-in animation
@@ -29,15 +34,11 @@ public class SplashActivity extends AppCompatActivity {
         logo.startAnimation(fadeIn);
 
         // Play sound effect
-        mediaPlayer = MediaPlayer.create(this, R.raw.splash_sound); // Ensure you have 'splash_sound.mp3' in res/raw
+        mediaPlayer = MediaPlayer.create(this, R.raw.splash_sound);
         mediaPlayer.start();
 
         // Delay and move to MainActivity
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish(); // Close splash screen
-        }, SPLASH_DURATION);
+        new Handler().postDelayed(this::UserLogInData, SPLASH_DURATION);
     }
 
     @Override
@@ -47,4 +48,21 @@ public class SplashActivity extends AppCompatActivity {
             mediaPlayer.release();
         }
     }
+
+    private void UserLogInData(){
+
+        // saved login data
+        if (mAuth.getCurrentUser() != null) {
+            // User is logged in, go to Dashboard
+            startActivity(new Intent(this, DashboardFragment.class));
+            finish();
+        } else {
+            // No user logged in, go to Login screen
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+
+    }
 }
+
+

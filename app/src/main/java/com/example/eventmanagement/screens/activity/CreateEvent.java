@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -76,10 +77,31 @@ public class CreateEvent extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            binding.imageViewEventBanner.setImageURI(imageUri);
-            convertImageToBase64();
+
+            // Check image size before proceeding
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                int fileSizeInBytes = inputStream.available();
+                inputStream.close();
+
+                int fileSizeInKB = fileSizeInBytes / 1024;
+                int fileSizeInMB = fileSizeInKB / 1024;
+
+                if (fileSizeInMB > 1) {
+                    Toast.makeText(this, "Image is greater than 1MB. Please select an image less than 1MB.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                // Set image and proceed with base64 conversion
+                binding.imageViewEventBanner.setImageURI(imageUri);
+                convertImageToBase64();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error checking image size", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
 
     private void convertImageToBase64() {
         try {
