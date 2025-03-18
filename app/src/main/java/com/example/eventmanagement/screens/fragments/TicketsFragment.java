@@ -60,6 +60,10 @@ public class TicketsFragment extends Fragment implements TicketAdapter.TicketAct
                 .whereEqualTo("userId", userId)
                 .get()
                 .addOnCompleteListener(task -> {
+
+                    //Prevent accessing null binding
+                    if (binding == null) return;
+
                     binding.progressBar.setVisibility(View.GONE);
 
                     if (task.isSuccessful()) {

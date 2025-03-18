@@ -50,6 +50,10 @@ public class AdminEventApproval extends AppCompatActivity implements AdminEventA
                 .whereEqualTo("approved", false)
                 .get()
                 .addOnCompleteListener(task -> {
+
+                    // Prevent accessing null binding
+                    if (binding == null) return;
+
                     binding.progressBarAdmin.setVisibility(View.GONE);
 
                     if (task.isSuccessful()) {
@@ -57,11 +61,6 @@ public class AdminEventApproval extends AppCompatActivity implements AdminEventA
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Event event = document.toObject(Event.class);
                             event.setId(document.getId());
-
-                            // Get Base64 image data if available
-                            if (document.contains("imageBase64")) {
-                                event.setImageBase64(document.getString("imageBase64"));
-                            }
 
                             pendingEvents.add(event);
                         }
@@ -77,11 +76,6 @@ public class AdminEventApproval extends AppCompatActivity implements AdminEventA
                         Toast.makeText(this, "Error loading events: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    private Bitmap decodeBase64ToBitmap(String base64String) {
-        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
     @Override

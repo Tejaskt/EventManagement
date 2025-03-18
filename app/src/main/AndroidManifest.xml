@@ -45,7 +45,7 @@
         <activity
             android:name=".auth.SignupActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".auth.LoginActivity"
             android:exported="false" />

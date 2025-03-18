@@ -1,6 +1,9 @@
 package com.example.eventmanagement.screens.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
@@ -63,7 +66,7 @@ public class EventDetails extends AppCompatActivity {
         binding.buttonBookmark.setOnClickListener(v -> {
             if (isBookmarked) {
                 removeBookmark();
-            } else {
+            }else{
                 bookmarkEvent();
             }
         });
@@ -77,6 +80,10 @@ public class EventDetails extends AppCompatActivity {
 
         db.collection("events").document(eventId).get()
                 .addOnSuccessListener(documentSnapshot -> {
+
+                    // Prevent accessing null binding
+                    if (binding == null) return;
+
                     binding.progressBar.setVisibility(View.GONE);
 
                     if (documentSnapshot.exists()) {
@@ -109,9 +116,9 @@ public class EventDetails extends AppCompatActivity {
         binding.textViewEventLocation.setText(event.getLocation());
 
         // Format price with currency
-        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
-        format.setCurrency(Currency.getInstance("USD"));
-        binding.textViewEventPrice.setText(format.format(event.getPrice()));
+         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
+         format.setCurrency(Currency.getInstance("USD"));
+         binding.textViewEventPrice.setText(format.format(event.getPrice()));
 
         binding.textViewEventDescription.setText(event.getDescription());
         binding.textViewEventOrganizers.setText(event.getOrganizers());
@@ -121,10 +128,17 @@ public class EventDetails extends AppCompatActivity {
 
         // Load event image
         if (event.getImageUrl() != null && !event.getImageUrl().isEmpty()) {
-            Glide.with(this)
-                    .load(event.getImageUrl())
-                    .centerCrop()
-                    .into(binding.imageViewEvent);
+            try {
+                byte[] decodedBytes = Base64.decode(event.getImageUrl(), Base64.DEFAULT);
+                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+                Glide.with(binding.imageViewEvent.getContext())
+                        .load(decodedBitmap)
+                        .centerCrop()
+                        .into(binding.imageViewEvent);
+            } catch (IllegalArgumentException e) {
+                Toast.makeText(getApplicationContext(), "Error loading image" + e.getMessage(), Toast.LENGTH_LONG).show(); // Handle decoding error
+            }
         }
     }
 
@@ -162,7 +176,7 @@ public class EventDetails extends AppCompatActivity {
                         binding.buttonBookmark.setImageResource(R.drawable.ic_bookmark);
                     } else {
                         isBookmarked = false;
-                        binding.buttonBookmark.setImageResource(R.drawable.ic_bookmark);
+                        binding.buttonBookmark.setImageResource(R.drawable.ic_bookmark_empty);
                     }
                 });
     }

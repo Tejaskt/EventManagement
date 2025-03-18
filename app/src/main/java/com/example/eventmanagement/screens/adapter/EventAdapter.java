@@ -6,15 +6,14 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.eventmanagement.screens.activity.EventDetails;
 import com.example.eventmanagement.databinding.ItemEventCardBinding;
 import com.example.eventmanagement.screens.model.Event;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -55,9 +54,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         void bind(Event event) {
             binding.textViewEventName.setText(event.getName());
+            binding.textViewEventOrganizer.setText("by: " + event.getOrganizers());
             binding.textViewEventDate.setText(event.getStartDate());
             binding.textViewEventLocation.setText(event.getLocation());
             binding.textViewEventPrice.setText(String.format(Locale.US, "$%.2f", event.getPrice()));
+            binding.textViewEventDescription.setText(event.getDescription());
+            binding.textViewEventTime.setText(event.getTime());
 
             // Load image with Glide
             if (event.getImageUrl() != null && !event.getImageUrl().isEmpty()) {
@@ -70,17 +72,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                             .centerCrop()
                             .into(binding.imageViewEvent);
                 } catch (IllegalArgumentException e) {
+                    Toast.makeText(this.itemView.getContext(), "Failed to load image" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace(); // Handle decoding error
                 }
             }
-
-
-            // Set click listener for the view details button
-            binding.buttonViewDetails.setOnClickListener(v -> {
-                Intent intent = new Intent(v.getContext(), EventDetails.class);
-                intent.putExtra("EVENT_ID", event.getId());
-                v.getContext().startActivity(intent);
-            });
 
             // Set click listener for the entire card
             binding.getRoot().setOnClickListener(v -> {
@@ -88,15 +83,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 intent.putExtra("EVENT_ID", event.getId());
                 v.getContext().startActivity(intent);
             });
-
-
-            // Extra
-            /*binding.buttonApprove.setOnClickListener(v -> {
-                Intent intent = new Intent(v.getContext(), EventDetails.class);
-                intent.putExtra("EVENT_ID", event.getId());
-                v.getContext().startActivity(intent);
-            });*/
-
 
         }
     }

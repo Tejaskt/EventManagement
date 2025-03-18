@@ -1,8 +1,11 @@
 package com.example.eventmanagement.admin.adapter;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,15 +67,21 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventAdapter.Ad
             binding.textViewEventDescription.setText(event.getDescription());
             binding.textViewEventOrganizer.setText("By: " + event.getOrganizers());
 
-            // Load image from Base64 or URL
-            Bitmap base64Image = event.getDecodedImage();
-            if (base64Image != null) {
-                binding.imageViewEvent.setImageBitmap(base64Image);
-            } else if (event.getImageUrl() != null && !event.getImageUrl().isEmpty()) {
-                Glide.with(binding.imageViewEvent.getContext())
-                        .load(event.getImageUrl())
-                        .centerCrop()
-                        .into(binding.imageViewEvent);
+
+            // Load image with Glide
+            if (event.getImageUrl() != null && !event.getImageUrl().isEmpty()) {
+                try {
+                    byte[] decodedBytes = Base64.decode(event.getImageUrl(), Base64.DEFAULT);
+                    Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+                    Glide.with(binding.imageViewEvent.getContext())
+                            .load(decodedBitmap)
+                            .centerCrop()
+                            .into(binding.imageViewEvent);
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(this.itemView.getContext(), "Failed to load image" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace(); // Handle decoding error
+                }
             }
 
             // Set click listeners for approve and reject buttons

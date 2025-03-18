@@ -11,7 +11,7 @@ public class Event {
     private String id;
     private String name;
     private String imageUrl;
-    private String imageBase64; // New field for Base64 image storage
+    private String imageBase64;
     private String startDate;
     private String endDate;
     private String time;
@@ -61,14 +61,6 @@ public class Event {
 
     public void setImageBase64(String imageBase64) {
         this.imageBase64 = imageBase64;
-    }
-
-    public Bitmap getDecodedImage() {
-        if (imageBase64 != null && !imageBase64.isEmpty()) {
-            byte[] decodedBytes = Base64.decode(imageBase64, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-        }
-        return null;
     }
 
     public String getStartDate() {

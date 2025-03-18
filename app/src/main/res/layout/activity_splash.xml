@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/imageViewLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="AppLogo"
-        android:src="@mipmap/app_logo"
+        android:src="@drawable/jpteventlogo"
         android:scaleType="fitCenter" />
 </LinearLayout>

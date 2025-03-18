@@ -6,21 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.eventmanagement.auth.LoginActivity;
 import com.example.eventmanagement.databinding.FragmentProfileBinding;
 import com.example.eventmanagement.screens.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
@@ -54,6 +51,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadUserProfile() {
+
         binding.progressBar.setVisibility(View.VISIBLE);
 
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -68,6 +66,10 @@ public class ProfileFragment extends Fragment {
 
         db.collection("users").document(userId).get()
                 .addOnSuccessListener(documentSnapshot -> {
+
+                    //Prevent accessing null binding
+                    if (binding == null) return;
+
                     binding.progressBar.setVisibility(View.GONE);
 
                     if (documentSnapshot.exists()) {
@@ -176,7 +178,7 @@ public class ProfileFragment extends Fragment {
     private void logoutUser() {
         mAuth.signOut();
         startActivity(new Intent(getActivity(), LoginActivity.class));
-        getActivity().finish();
+        requireActivity().finish();
     }
 
     @Override

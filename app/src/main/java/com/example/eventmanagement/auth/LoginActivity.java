@@ -71,12 +71,10 @@ public class LoginActivity extends AppCompatActivity {
 
         forgotPassBtn.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-            finish();
         });
 
         signUpLink.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-            finish();
         });
     }
 

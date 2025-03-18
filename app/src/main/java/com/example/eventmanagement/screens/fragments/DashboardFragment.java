@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.eventmanagement.screens.adapter.EventAdapter;
 import com.example.eventmanagement.databinding.FragmentDashboardBinding;
 import com.example.eventmanagement.screens.model.Event;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -49,16 +51,23 @@ public class DashboardFragment extends Fragment {
     }
 
     private void loadApprovedEvents() {
+
         binding.progressBarDashboard.setVisibility(View.VISIBLE);
 
         db.collection("events")
                 .whereEqualTo("approved", true)
+                .orderBy(FieldPath.documentId(), Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
+
+                    // Prevent accessing null binding
+                    if (binding == null) return;
+
                     binding.progressBarDashboard.setVisibility(View.GONE);
 
                     if (task.isSuccessful()) {
                         eventList.clear();
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Event event = document.toObject(Event.class);
                             event.setId(document.getId());
@@ -72,6 +81,7 @@ public class DashboardFragment extends Fragment {
                         }
 
                         eventAdapter.notifyDataSetChanged();
+
                     } else {
                         Toast.makeText(getContext(), "Error loading events: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

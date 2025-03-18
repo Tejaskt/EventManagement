@@ -54,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
         // saved login data
         if (mAuth.getCurrentUser() != null) {
             // User is logged in, go to Dashboard
-            startActivity(new Intent(this, DashboardFragment.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         } else {
             // No user logged in, go to Login screen

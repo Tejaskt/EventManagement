@@ -1,5 +1,8 @@
 package com.example.eventmanagement.screens.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -61,10 +64,18 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
 
             // Load event image
             if (bookmark.getEventImageUrl() != null && !bookmark.getEventImageUrl().isEmpty()) {
-                Glide.with(binding.imageViewEvent.getContext())
-                        .load(bookmark.getEventImageUrl())
-                        .centerCrop()
-                        .into(binding.imageViewEvent);
+                try {
+                    byte[] decodedBytes = Base64.decode(bookmark.getEventImageUrl(), Base64.DEFAULT);
+                    Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+                    Glide.with(binding.imageViewEvent.getContext())
+                            .load(decodedBitmap)
+                            .centerCrop()
+                            .into(binding.imageViewEvent);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace(); // Handle decoding error
+                }
+
             }
 
             // Set click listeners

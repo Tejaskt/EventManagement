@@ -62,6 +62,10 @@ public class BookmarksFragment extends Fragment implements BookmarkAdapter.Bookm
                 .whereEqualTo("userId", userId)
                 .get()
                 .addOnCompleteListener(task -> {
+
+                    //Prevent accessing null binding
+                    if (binding == null) return;
+
                     binding.progressBar.setVisibility(View.GONE);
 
                     if (task.isSuccessful()) {
