@@ -9,8 +9,8 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventmanagement.R;
+import com.example.eventmanagement.admin.screens.AdminDashboard;
 import com.example.eventmanagement.auth.LoginActivity;
-import com.example.eventmanagement.screens.fragments.DashboardFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
@@ -49,10 +49,11 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    /*
     private void UserLogInData(){
-
         // saved login data
         if (mAuth.getCurrentUser() != null) {
+
             // User is logged in, go to Dashboard
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -62,7 +63,23 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }
 
+    }*/
+
+    private void UserLogInData() {
+        if (mAuth.getCurrentUser() != null) {
+            String userEmail = mAuth.getCurrentUser().getEmail();
+
+            if (userEmail != null && userEmail.equals("admin@eventmanagement.com")) {
+                startActivity(new Intent(this, AdminDashboard.class));
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+            }
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+        finish();
     }
+
 }
 
 

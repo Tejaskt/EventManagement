@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="Logout"
-        android:textColor="#00bbff"
+        android:textColor="#E53935"
         app:layout_constraintBottom_toBottomOf="@+id/textView_admin_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_admin_title" />

@@ -63,7 +63,7 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventAdapter.Ad
             binding.textViewEventName.setText(event.getName());
             binding.textViewEventDate.setText(event.getStartDate() + " - " + event.getEndDate());
             binding.textViewEventLocation.setText(event.getLocation());
-            binding.textViewEventPrice.setText(String.format(Locale.US, "$%.2f", event.getPrice()));
+            binding.textViewEventPrice.setText(String.format(Locale.US, "%.2f", event.getPrice()));
             binding.textViewEventDescription.setText(event.getDescription());
             binding.textViewEventOrganizer.setText("By: " + event.getOrganizers());
 

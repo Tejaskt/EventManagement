@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.2"
+checkout = "1.6.41"
 compiler = "4.16.0"
 firebaseBom = "33.10.0"
 firebaseStorage = "21.0.1"
@@ -22,6 +23,7 @@ ksp = "1.9.22-1.0.16" # Check the latest version
 firebaseFirestore = "25.1.2"
 
 [libraries]
+checkout = { module = "com.razorpay:checkout", version.ref = "checkout" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }

@@ -61,7 +61,11 @@ dependencies {
 
     // Glide for image loading
     implementation(libs.glide)
-    kapt("com.github.bumptech.glide:compiler:4.16.0") // ✅ Ensure kapt works
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.compiler) // ✅ Ensure kapt works
+
+    // Razorpay SDK
+    implementation(libs.checkout)
 }
 
 apply(plugin = "com.google.gms.google-services")
