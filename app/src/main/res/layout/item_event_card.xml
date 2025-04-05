@@ -53,7 +53,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="end"
-                    tools:text="$25.00" />
+                    tools:text="25.00₹" />
             </LinearLayout>
 
             <TextView

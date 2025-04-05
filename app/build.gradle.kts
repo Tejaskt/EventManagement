@@ -64,8 +64,10 @@ dependencies {
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.compiler) // ✅ Ensure kapt works
 
-    // Razorpay SDK
-    implementation(libs.checkout)
+    // qr code
+    implementation(libs.zxing.android.embedded)
+
+
 }
 
 apply(plugin = "com.google.gms.google-services")

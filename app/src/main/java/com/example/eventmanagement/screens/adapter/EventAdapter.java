@@ -57,7 +57,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             binding.textViewEventOrganizer.setText("by: " + event.getOrganizers());
             binding.textViewEventDate.setText(event.getStartDate());
             binding.textViewEventLocation.setText(event.getLocation());
-            binding.textViewEventPrice.setText(String.format(Locale.US, "$%.2f", event.getPrice()));
+            binding.textViewEventPrice.setText(String.format(Locale.US, "₹%.2f", event.getPrice()));
             binding.textViewEventDescription.setText(event.getDescription());
             binding.textViewEventTime.setText(event.getTime());
 

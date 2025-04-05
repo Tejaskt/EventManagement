@@ -86,7 +86,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView_event_location"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="$25.00" />
+            tools:text="25.00₹" />
 
         <TextView
             android:id="@+id/textView_event_description"

@@ -1,5 +1,6 @@
 package com.example.eventmanagement.admin.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -59,11 +60,13 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventAdapter.Ad
             this.binding = binding;
         }
 
+        @SuppressLint("SetTextI18n")
         void bind(Event event) {
             binding.textViewEventName.setText(event.getName());
             binding.textViewEventDate.setText(event.getStartDate() + " - " + event.getEndDate());
             binding.textViewEventLocation.setText(event.getLocation());
-            binding.textViewEventPrice.setText(String.format(Locale.US, "%.2f", event.getPrice()));
+//          binding.textViewEventPrice.setText(String.format(Locale.US, "%.2f", event.getPrice()));
+            binding.textViewEventPrice.setText(String.format(new Locale("en", "IN"), "%.2f", event.getPrice()));
             binding.textViewEventDescription.setText(event.getDescription());
             binding.textViewEventOrganizer.setText("By: " + event.getOrganizers());
 

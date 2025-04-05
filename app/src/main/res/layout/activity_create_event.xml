@@ -156,7 +156,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Registration Price ($)"
+                android:hint="Registration Price (₹)"
                 android:theme="@style/TextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText

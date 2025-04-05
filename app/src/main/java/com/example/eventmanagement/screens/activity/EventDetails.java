@@ -1,5 +1,6 @@
 package com.example.eventmanagement.screens.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -105,6 +106,7 @@ public class EventDetails extends AppCompatActivity {
                 });
     }
 
+    @SuppressLint("SetTextI18n")
     private void displayEventDetails() {
         // Set event details in the UI
         binding.textViewEventName.setText(event.getName());
@@ -114,7 +116,8 @@ public class EventDetails extends AppCompatActivity {
 
         // Format price with currency
          NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
-         format.setCurrency(Currency.getInstance("USD"));
+         //format.setCurrency(Currency.getInstance("USD"));
+         format.setCurrency(Currency.getInstance("INR"));
          binding.textViewEventPrice.setText(format.format(event.getPrice()));
 
         binding.textViewEventDescription.setText(event.getDescription());
