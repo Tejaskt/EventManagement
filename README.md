@@ -52,7 +52,29 @@ EventManagement/
 ├── build.gradle.kts
 └── settings.gradle.kts
 
+---
 
+## 🖼️ Screenshots
+
+#AdminSide
+
+<p align="center">
+  <img src="screenshots/admin/admin dashboard.jpg" alt="Admin Dashboard Image"/>
+  <img src="screenshots/admin/admin event approval.jpg" alt="Admin evnet approval Image" />
+</p>
+
+#UserSide
+
+<p align="center">
+  <img src="screenshots/user/login screen.jpg" alt="Login Screen" />
+  <img src="screenshots/user/signup screen.jpg" alt="Signup Screen" />
+  <img src="screenshots/user/forgotpassword.jpg" alt="Forgotpass Screen" />
+  <img src="screenshots/user/user dashboard.jpg" alt="Home Screen" />
+  <img src="screenshots/user/event ticket.jpg" alt="View Ticket" />  
+  <img src="screenshots/user/evnet bookmard.jpg" alt="View Bookmark" />  
+  <img src="screenshots/user/create new evnet.jpg" alt="Create New Event" />  
+  <img src="screenshots/user/event desc.jpg" alt="Event Description" />  
+</p>
 
 ---
 
